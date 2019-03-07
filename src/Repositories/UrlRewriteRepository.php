@@ -43,7 +43,7 @@ class UrlRewriteRepository implements UrlRewriteInterface
 
     public function getByTargetPath($url)
     {
-        return $this->model->where('target_path', $url)->firstOrFail();
+        return $this->model->where('target_path', $url)->first();
     }
 
     public function all()
@@ -83,8 +83,15 @@ class UrlRewriteRepository implements UrlRewriteInterface
         return $urlRewrite;
     }
 
-    public function create($requestPath, $targetPath, $type = null, $typeAttributes = null, $redirectType = 0, $store = null, $description = null)
-    {
+    public function create(
+        $requestPath,
+        $targetPath,
+        $type = null,
+        $typeAttributes = null,
+        $redirectType = 0,
+        $store = null,
+        $description = null
+    ) {
         return $this->model->create(
             [
                 'type' => $type,
@@ -103,8 +110,16 @@ class UrlRewriteRepository implements UrlRewriteInterface
         // TODO: Implement update() method.
     }
 
-    public function createUnique($requestPath, $targetPath, $type = null, $typeAttributes = null, $redirectType = 0, $store = null, $description = null, $id = null)
-    {
+    public function createUnique(
+        $requestPath,
+        $targetPath,
+        $type = null,
+        $typeAttributes = null,
+        $redirectType = 0,
+        $store = null,
+        $description = null,
+        $id = null
+    ) {
         // TODO: Implement createIfNotExists() method.
     }
 }

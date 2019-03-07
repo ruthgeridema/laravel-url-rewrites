@@ -2,7 +2,6 @@
 
 namespace RuthgerIdema\UrlRewrite\Repositories\Decorators;
 
-use RuthgerIdema\UrlRewrite\Entities\UrlRewrite;
 use RuthgerIdema\UrlRewrite\Repositories\Interfaces\UrlRewriteInterface;
 
 class CachingUrlRewriteRepository implements UrlRewriteInterface

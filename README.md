@@ -1,6 +1,7 @@
 # Easily add URL rewrites to a Laravel app
 
 Very easy to use URL rewrite package. Follow the instructions and you're good to go!
+  
 I've used the [Spatie guidelines](https://guidelines.spatie.be/code-style/laravel-php) for better code.
 
 ## Requirements
@@ -13,12 +14,13 @@ This package requires Laravel 5.8 or higher and PHP 7.2 or higher.
 You can install the package via composer:
 
 ``` bash
-composer require ruthgeridema/laravel-url-rewrite
+composer require ruthgeridema/laravel-url-rewrites
 ```
 
 The package will automatically register itself.
 
-Register the routes the feeds will be displayed on using the `rewrites`-macro.
+Register the routes the feeds will be displayed on using the `rewrites`-macro.  
+You need to place it at the bottom of your routes file.
 
 ```php
 // In routes/web.php
@@ -57,10 +59,10 @@ return [
     'types' => [
         'product' => [
             'route' => 'product'
-        ],
+        ]/*,
         'category' => [
             'route' => 'category'
-        ]
+        ]*/
     ]
 ];
 ```

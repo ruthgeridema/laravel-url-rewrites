@@ -2,8 +2,6 @@
 
 namespace RuthgerIdema\UrlRewrite\Repositories\Interfaces;
 
-use RuthgerIdema\UrlRewrite\Entities\UrlRewrite;
-
 interface UrlRewriteInterface
 {
     public function find($id);
