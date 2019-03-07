@@ -1,0 +1,49 @@
+{
+  "name": "ruthgeridema/laravel-url-rewrites",
+  "description": "Easy URL rewrites in your Laravel application",
+  "keywords": [
+    "url",
+    "rewrite",
+    "laravel"
+  ],
+  "homepage": "https://github.com/ruthgeridema/laravel-url-rewrites",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Ruthger Idema",
+      "email": "ruthger.idema@gmail.com",
+      "homepage": "https://ide.ma"
+    }
+  ],
+  "require": {
+    "php": "^7.2",
+    "laravel/framework": "~5.8"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^8.0",
+    "orchestra/testbench": "~3.8.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "RuthgerIdema\\UrlRewrite\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "RuthgerIdema\\UrlRewrite\\Test\\": "tests"
+    }
+  },
+  "scripts": {
+    "test": "vendor/bin/phpunit"
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "RuthgerIdema\\UrlRewrite\\ServiceProvider"
+      ]
+    }
+  }
+}
