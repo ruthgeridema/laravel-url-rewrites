@@ -101,7 +101,7 @@ class UrlRewriteRepository implements UrlRewriteInterface
         }
 
         return $this->update(
-            ['target_path' => route($urlRewrite->type, $urlRewrite->type_attributes, false)],
+            ['target_path' => $this->targetPathFromRoute($urlRewrite->type, $urlRewrite->type_attributes)],
             $urlRewrite->id
         );
     }
@@ -121,6 +121,10 @@ class UrlRewriteRepository implements UrlRewriteInterface
             }
 
             $requestPath = $this->generateUnique($requestPath);
+        }
+
+        if ($targetPath === null && isset($type, $typeAttributes)) {
+            $targetPath = $this->targetPathFromRoute($type, $typeAttributes);
         }
 
         return $this->model->create(
@@ -156,5 +160,14 @@ class UrlRewriteRepository implements UrlRewriteInterface
     protected function getTypes()
     {
         return config('url-rewrite.types');
+    }
+
+    /**
+     * @param $urlRewrite
+     * @return string
+     */
+    protected function targetPathFromRoute($type, $attributes): string
+    {
+        return route($type, $attributes, false);
     }
 }

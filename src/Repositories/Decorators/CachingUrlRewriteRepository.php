@@ -9,19 +9,19 @@ use RuthgerIdema\UrlRewrite\Repositories\Interfaces\UrlRewriteInterface;
 class CachingUrlRewriteRepository implements UrlRewriteInterface
 {
     /** @var string */
-    const URL_REWRITE_ALL = 'url_rewrite_all';
+    public const URL_REWRITE_ALL = 'url_rewrite_all';
 
     /** @var string */
-    const URL_REWRITE_ID = "url_rewrite_id_";
+    public const URL_REWRITE_ID = "url_rewrite_id_";
 
     /** @var string */
-    const URL_REWRITE_REQUEST_PATH = "url_rewrite_request_path_";
+    public const URL_REWRITE_REQUEST_PATH = "url_rewrite_request_path_";
 
     /** @var string  */
-    const URL_REWRITE_TARGET_PATH = "url_rewrite_target_path_";
+    public const URL_REWRITE_TARGET_PATH = "url_rewrite_target_path_";
 
     /** @var string  */
-    const URL_REWRITE_TYPE_ATTRIBUTES = "url_rewrite_type_attributes_";
+    public const URL_REWRITE_TYPE_ATTRIBUTES = "url_rewrite_type_attributes_";
 
     /** @var UrlRewriteInterface */
     protected $repository;
@@ -63,7 +63,7 @@ class CachingUrlRewriteRepository implements UrlRewriteInterface
 
     public function find($id)
     {
-        return $this->remember(self::URL_REWRITE_ID .$id,__FUNCTION__, $id);
+        return $this->remember(self::URL_REWRITE_ID .$id, __FUNCTION__, $id);
     }
 
     public function getByRequestPath($url)
@@ -78,7 +78,7 @@ class CachingUrlRewriteRepository implements UrlRewriteInterface
 
     public function getByTargetPath($url)
     {
-        return $this->remember(static::URL_REWRITE_TARGET_PATH . md5($url),__FUNCTION__,  $url);
+        return $this->remember(static::URL_REWRITE_TARGET_PATH . md5($url), __FUNCTION__, $url);
     }
 
     public function getByTypeAndAttributes($type, array $attributes)
@@ -107,8 +107,9 @@ class CachingUrlRewriteRepository implements UrlRewriteInterface
         return $this->repository->delete($id);
     }
 
-    protected function forgetById($id) {
-        if($model = $this->find($id)) {
+    protected function forgetById($id)
+    {
+        if ($model = $this->find($id)) {
             $this->cache->forget(static::URL_REWRITE_ALL);
             $this->cache->forget(static::URL_REWRITE_ID . $model->id);
             $this->cache->forget(static::URL_REWRITE_REQUEST_PATH . md5($model->request_path));

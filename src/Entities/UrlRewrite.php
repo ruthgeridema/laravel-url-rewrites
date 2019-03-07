@@ -22,7 +22,6 @@ class UrlRewrite extends Model
         'request_path',
         'target_path',
         'redirect_type',
-        'site_id',
         'description'
     ];
 

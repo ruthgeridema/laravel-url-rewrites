@@ -1,8 +1,56 @@
 # Easily add URL rewrites to a Laravel app
-
 Very easy to use URL rewrite package. Follow the instructions and you're good to go!
   
 I've used the [Spatie guidelines](https://guidelines.spatie.be/code-style/laravel-php) for better code.
+
+
+## Usage
+
+### Forward request
+
+Let's say you've got a controller route 'product/{id}' and you have a product 'Apple Airpods' with id=5.  
+When you visit 'apple-airpods' this package will forward the request to the controller but keeps the clean url.
+
+The following code adds this to the database:
+```php
+UrlRewrite::create('apple-airpods', 'product/5')
+```
+
+### Use named routes
+You must specify the types in the config. 
+```php
+UrlRewrite::create('apple-airpods', null, 'product', ["id" => 5])
+```
+
+To regenerate the target path you can use
+```php
+UrlRewrite::regenerateRoute($urlRewrite)
+UrlRewrite::regenerateAll()
+UrlRewrite:;regenerateRoutesFromType($type)
+```
+
+### Redirect
+
+301 redirect
+```php
+UrlRewrite::create('apple-airpods', 'product/5', null, null, 1)
+```
+302 redirect
+```php
+UrlRewrite::create('apple-airpods', 'product/5', null, null, 2)
+```
+
+### Other functions
+```php
+UrlRewrite::all()
+UrlRewrite::find($id)
+UrlRewrite::delete($id)
+UrlRewrite::update($data, $id)
+UrlRewrite::getByRequestPath('apple-airpods')
+UrlRewrite::getByTargetPath('product/5')
+UrlRewrite::getByTypeAndAttributes('product', ["id" => 5])
+```
+
 
 ## Requirements
 

@@ -38,7 +38,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
     protected function registerRouteMacro()
     {
         $router = $this->app['router'];
-        $router->macro('rewrites', function ($baseUrl = '') use ($router) {
+        $router->macro('rewrites', function () use ($router) {
             $router->get('/{url}', '\\'.UrlRewriteController::class)->name("url.rewrite");
         });
     }
