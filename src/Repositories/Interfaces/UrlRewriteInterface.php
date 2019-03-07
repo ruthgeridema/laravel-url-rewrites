@@ -4,6 +4,10 @@ namespace RuthgerIdema\UrlRewrite\Repositories\Interfaces;
 
 interface UrlRewriteInterface
 {
+    public function getModel();
+
+    public function setModel($model);
+
     public function find($id);
 
     public function getByRequestPath($url);
@@ -16,11 +20,9 @@ interface UrlRewriteInterface
 
     public function delete($id);
 
-    public function create($requestPath, $targetPath, $type = null, $typeAttributes = null, $redirectType = 0, $store = null, $description = null);
+    public function create($requestPath, $targetPath, $type = null, $typeAttributes = null, $redirectType = 0, $description = null, $unique = false);
 
-    public function update($data);
+    public function update(array $data, $id);
 
     public function regenerateRoute($urlRewrite);
-
-    public function createUnique($requestPath, $targetPath, $type = null, $typeAttributes = null, $redirectType = 0, $store = null, $description = null, $id = null);
 }

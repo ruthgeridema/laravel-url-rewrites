@@ -55,7 +55,7 @@ class UrlRewrite extends Model
         return $this->redirect_type === static::PERMANENT ? 301 : 302;
     }
 
-    public function getByTypeAndAttributes($type, array $attributes): self
+    public function getByTypeAndAttributes($type, array $attributes)
     {
         $query = $this->where('type', $type);
 

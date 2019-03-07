@@ -5,7 +5,6 @@ namespace RuthgerIdema\UrlRewrite;
 use RuthgerIdema\UrlRewrite\Facades\UrlRewrite;
 use RuthgerIdema\UrlRewrite\Http\UrlRewriteController;
 use RuthgerIdema\UrlRewrite\Repositories\Interfaces\UrlRewriteInterface;
-use RuthgerIdema\UrlRewrite\Facades\UrlRewriteRepository as UrlRewriteFacade;
 
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {

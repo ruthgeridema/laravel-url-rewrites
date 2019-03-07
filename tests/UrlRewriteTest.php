@@ -22,6 +22,15 @@ class UrlRewriteTest extends TestCase
     }
 
     /** @test */
+    public function it_can_create_an_unique_url_rewrite()
+    {
+        UrlRewrite::create('test-request-path', 'test-target-path');
+        $unique = UrlRewrite::create('test-request-path', 'test-target-path', null, null, 0, null, true);
+
+        $this->assertEquals('test-request-path-1', $unique->request_path);
+    }
+
+    /** @test */
     public function it_can_create_an_url_rewrite_with_type()
     {
         $attributes = ['id' => 15];
@@ -29,6 +38,15 @@ class UrlRewriteTest extends TestCase
         $this->assertEquals('test-request-path-with-type', $urlRewrite->request_path);
         $this->assertEquals('test-target-path-with-type', $urlRewrite->target_path);
     }
+
+    /** @test */
+    public function it_can_find_an_url_rewrite_with_type()
+    {
+        $attributes = ['id' => 25];
+        $urlRewrite = UrlRewrite::create('test-request-path-with-type', 'test-target-path-with-type', 'product', $attributes);
+        $this->assertEquals(UrlRewrite::getByTypeAndAttributes('product', $attributes)->id, $urlRewrite->id);
+    }
+
 
     /** @test */
     public function it_can_find_an_url_rewrite_by_id()
