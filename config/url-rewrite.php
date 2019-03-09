@@ -9,9 +9,11 @@ return [
     'types' => [
         'product' => [
             'route' => 'product',
-        ], /*,
+            'attributes' => ['id'],
+        ],
         'category' => [
-            'route' => 'category'
-        ]*/
+            'route' => 'category',
+            'attributes' => ['id'],
+        ]
     ],
 ];
