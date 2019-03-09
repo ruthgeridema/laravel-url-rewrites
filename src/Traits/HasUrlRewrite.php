@@ -4,8 +4,8 @@ namespace RuthgerIdema\UrlRewrite\Traits;
 
 use RuthgerIdema\UrlRewrite\Facades\UrlRewrite;
 
-trait HasUrlRewrite {
-
+trait HasUrlRewrite
+{
     public function getUrlAttribute(): string
     {
         if (! $urlRewrite = UrlRewrite::getByTypeAndAttributes(
@@ -27,5 +27,4 @@ trait HasUrlRewrite {
 
         return $mapped;
     }
-
 }

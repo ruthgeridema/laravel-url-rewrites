@@ -14,6 +14,6 @@ return [
         'category' => [
             'route' => 'category',
             'attributes' => ['id'],
-        ]
+        ],
     ],
 ];
