@@ -12,16 +12,16 @@ class CachingUrlRewriteRepository implements UrlRewriteInterface
     public const URL_REWRITE_ALL = 'url_rewrite_all';
 
     /** @var string */
-    public const URL_REWRITE_ID = "url_rewrite_id_";
+    public const URL_REWRITE_ID = 'url_rewrite_id_';
 
     /** @var string */
-    public const URL_REWRITE_REQUEST_PATH = "url_rewrite_request_path_";
+    public const URL_REWRITE_REQUEST_PATH = 'url_rewrite_request_path_';
 
-    /** @var string  */
-    public const URL_REWRITE_TARGET_PATH = "url_rewrite_target_path_";
+    /** @var string */
+    public const URL_REWRITE_TARGET_PATH = 'url_rewrite_target_path_';
 
-    /** @var string  */
-    public const URL_REWRITE_TYPE_ATTRIBUTES = "url_rewrite_type_attributes_";
+    /** @var string */
+    public const URL_REWRITE_TYPE_ATTRIBUTES = 'url_rewrite_type_attributes_';
 
     /** @var UrlRewriteInterface */
     protected $repository;
@@ -63,12 +63,12 @@ class CachingUrlRewriteRepository implements UrlRewriteInterface
 
     public function find($id)
     {
-        return $this->remember(self::URL_REWRITE_ID .$id, __FUNCTION__, $id);
+        return $this->remember(self::URL_REWRITE_ID.$id, __FUNCTION__, $id);
     }
 
     public function getByRequestPath($url)
     {
-        return $this->remember(static::URL_REWRITE_REQUEST_PATH . md5($url), __FUNCTION__, $url);
+        return $this->remember(static::URL_REWRITE_REQUEST_PATH.md5($url), __FUNCTION__, $url);
     }
 
     public function all()
@@ -78,13 +78,13 @@ class CachingUrlRewriteRepository implements UrlRewriteInterface
 
     public function getByTargetPath($url)
     {
-        return $this->remember(static::URL_REWRITE_TARGET_PATH . md5($url), __FUNCTION__, $url);
+        return $this->remember(static::URL_REWRITE_TARGET_PATH.md5($url), __FUNCTION__, $url);
     }
 
     public function getByTypeAndAttributes($type, array $attributes)
     {
         return $this->remember(
-            self::URL_REWRITE_TYPE_ATTRIBUTES . md5($type . json_encode($attributes)),
+            self::URL_REWRITE_TYPE_ATTRIBUTES.md5($type.json_encode($attributes)),
             __FUNCTION__,
             $type,
             $attributes
@@ -104,6 +104,7 @@ class CachingUrlRewriteRepository implements UrlRewriteInterface
     public function delete($id)
     {
         $this->forgetById($id);
+
         return $this->repository->delete($id);
     }
 
@@ -111,10 +112,10 @@ class CachingUrlRewriteRepository implements UrlRewriteInterface
     {
         if ($model = $this->find($id)) {
             $this->cache->forget(static::URL_REWRITE_ALL);
-            $this->cache->forget(static::URL_REWRITE_ID . $model->id);
-            $this->cache->forget(static::URL_REWRITE_REQUEST_PATH . md5($model->request_path));
-            $this->cache->forget(static::URL_REWRITE_TARGET_PATH . md5($model->target_path));
-            $this->cache->forget(static::URL_REWRITE_TYPE_ATTRIBUTES . md5($model->type . json_encode($model->type_attributes)));
+            $this->cache->forget(static::URL_REWRITE_ID.$model->id);
+            $this->cache->forget(static::URL_REWRITE_REQUEST_PATH.md5($model->request_path));
+            $this->cache->forget(static::URL_REWRITE_TARGET_PATH.md5($model->target_path));
+            $this->cache->forget(static::URL_REWRITE_TYPE_ATTRIBUTES.md5($model->type.json_encode($model->type_attributes)));
         }
     }
 

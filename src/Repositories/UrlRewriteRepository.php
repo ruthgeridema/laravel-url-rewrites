@@ -3,8 +3,8 @@
 namespace RuthgerIdema\UrlRewrite\Repositories;
 
 use RuthgerIdema\UrlRewrite\Entities\UrlRewrite;
-use RuthgerIdema\UrlRewrite\Exceptions\UrlRewriteAlreadyExistsException;
 use RuthgerIdema\UrlRewrite\Exceptions\UrlRewriteRegenerationFailed;
+use RuthgerIdema\UrlRewrite\Exceptions\UrlRewriteAlreadyExistsException;
 use RuthgerIdema\UrlRewrite\Repositories\Interfaces\UrlRewriteInterface;
 
 class UrlRewriteRepository implements UrlRewriteInterface
@@ -26,6 +26,7 @@ class UrlRewriteRepository implements UrlRewriteInterface
     public function setModel($model)
     {
         $this->model = $model;
+
         return $this;
     }
 
@@ -82,7 +83,7 @@ class UrlRewriteRepository implements UrlRewriteInterface
 
     public function regenerateRoutesFromType($type)
     {
-        if (!array_key_exists($type, $this->getTypes())) {
+        if (! array_key_exists($type, $this->getTypes())) {
             throw UrlRewriteRegenerationFailed::invalidType($type);
         }
 
@@ -94,9 +95,9 @@ class UrlRewriteRepository implements UrlRewriteInterface
 
     public function regenerateRoute($urlRewrite)
     {
-        if (!array_key_exists($urlRewrite->type, $this->getTypes())) {
+        if (! array_key_exists($urlRewrite->type, $this->getTypes())) {
             throw UrlRewriteRegenerationFailed::invalidType($urlRewrite->type);
-        } elseif (!is_array($urlRewrite->type_attributes)) {
+        } elseif (! is_array($urlRewrite->type_attributes)) {
             throw UrlRewriteRegenerationFailed::columnNotSet($urlRewrite, 'type_attributes');
         }
 
@@ -116,7 +117,7 @@ class UrlRewriteRepository implements UrlRewriteInterface
         $unique = false
     ) {
         if ($this->checkIfRequestPathExists($requestPath)) {
-            if (!$unique) {
+            if (! $unique) {
                 throw UrlRewriteAlreadyExistsException::requestPath($requestPath);
             }
 
@@ -150,11 +151,11 @@ class UrlRewriteRepository implements UrlRewriteInterface
 
     protected function generateUnique($requestPath, $id = 1)
     {
-        if ($this->checkIfRequestPathExists($requestPath . '-' . $id)) {
+        if ($this->checkIfRequestPathExists($requestPath.'-'.$id)) {
             return $this->generateUnique($requestPath, $id + 1);
         }
 
-        return $requestPath . '-' . $id;
+        return $requestPath.'-'.$id;
     }
 
     protected function getTypes()

@@ -1,4 +1,5 @@
 <?php
+
 namespace RuthgerIdema\UrlRewrite\Exceptions;
 
 use Exception;
