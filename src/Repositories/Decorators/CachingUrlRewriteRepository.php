@@ -52,7 +52,7 @@ class CachingUrlRewriteRepository implements UrlRewriteInterface
     protected function addTagIfPossible()
     {
         if ($this->cache->getStore() instanceof TaggableStore) {
-            $this->cache = $this->cache->tags('url_rewrites');
+            $this->cache = $this->cache->tags(config("url-rewrite.cache-key"));
         }
     }
 

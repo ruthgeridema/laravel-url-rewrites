@@ -8,9 +8,7 @@ trait HasUrlRewrite {
 
     public function getUrlAttribute(): string
     {
-        if (! $urlRewrite = UrlRewrite::getByTypeAndAttributes(
-            config("url-rewrite.types.$this->urlRewriteType.route"), $this->getAttributesArray())
-        ) {
+        if (! $urlRewrite = $this->getUrlRewrite()) {
             return '';
         }
 
@@ -26,6 +24,12 @@ trait HasUrlRewrite {
         }
 
         return $mapped;
+    }
+
+    public function getUrlRewrite()
+    {
+        return UrlRewrite::getByTypeAndAttributes(
+            config("url-rewrite.types.$this->urlRewriteType.route"), $this->getUrlRewriteAttributesArray());
     }
 
 }

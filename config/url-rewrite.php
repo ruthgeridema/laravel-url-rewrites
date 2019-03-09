@@ -4,7 +4,8 @@ return [
     'table-name' => 'url_rewrites',
     'repository' => \RuthgerIdema\UrlRewrite\Repositories\UrlRewriteRepository::class,
     'model' => \RuthgerIdema\UrlRewrite\Entities\UrlRewrite::class,
-    'cache' => true,
+    'cache' => false,
+    'cache-tag' => 'url_rewrites',
     'cache-decorator' => \RuthgerIdema\UrlRewrite\Repositories\Decorators\CachingUrlRewriteRepository::class,
     'types' => [
         'product' => [
