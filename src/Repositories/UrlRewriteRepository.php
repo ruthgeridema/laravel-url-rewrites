@@ -87,9 +87,9 @@ class UrlRewriteRepository implements UrlRewriteInterface
             throw UrlRewriteRegenerationFailed::invalidType($type);
         }
 
-        $collection = $this->model->where('type', $type)->get();
-        foreach ($collection as $urlRewrite) {
-            $this->regenerateRoute($urlRewrite);
+        $rewrites = $this->model->where('type', $type)->get();
+        foreach ($rewrites as $rewrite) {
+            $this->regenerateRoute($rewrite);
         }
     }
 
@@ -163,10 +163,6 @@ class UrlRewriteRepository implements UrlRewriteInterface
         return config('url-rewrite.types');
     }
 
-    /**
-     * @param $urlRewrite
-     * @return string
-     */
     protected function targetPathFromRoute($type, $attributes): string
     {
         return route($type, $attributes, false);
