@@ -1,4 +1,5 @@
 <?php
+
 namespace RuthgerIdema\UrlRewrite\Exceptions;
 
 use Exception;
@@ -7,7 +8,7 @@ class UrlRewriteRegenerationFailed extends Exception
 {
     public static function noConfiguration(): self
     {
-        return new static("No types are set in the configuration.");
+        return new static('No types are set in the configuration.');
     }
 
     public static function invalidType($type): self

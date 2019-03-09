@@ -2,8 +2,8 @@
 
 namespace RuthgerIdema\UrlRewrite\Http;
 
-use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Request;
 use RuthgerIdema\UrlRewrite\Repositories\Interfaces\UrlRewriteInterface;
 
 class UrlRewriteController
@@ -19,7 +19,7 @@ class UrlRewriteController
 
     public function __invoke($url)
     {
-        if (!$urlRewrite = $this->repository->getByRequestPath($url)) {
+        if (! $urlRewrite = $this->repository->getByRequestPath($url)) {
             abort(404);
         }
 

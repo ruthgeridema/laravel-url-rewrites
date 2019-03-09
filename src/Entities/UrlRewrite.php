@@ -7,13 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class UrlRewrite extends Model
 {
     /** @var int */
-    public const FORWARD    = 0;
+    public const FORWARD = 0;
 
     /** @var int */
-    public const PERMANENT  = 1;
+    public const PERMANENT = 1;
 
     /** @var int */
-    public const TEMPORARY  = 2;
+    public const TEMPORARY = 2;
 
     /** @var array */
     protected $fillable = [
@@ -22,7 +22,7 @@ class UrlRewrite extends Model
         'request_path',
         'target_path',
         'redirect_type',
-        'description'
+        'description',
     ];
 
     /** @var array */
