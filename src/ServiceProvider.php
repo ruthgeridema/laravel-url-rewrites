@@ -39,7 +39,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
     {
         $router = $this->app['router'];
         $router->macro('rewrites', function () use ($router) {
-            $router->get('/{url}', '\\'.UrlRewriteController::class)->name("url.rewrite");
+            $router->get('/{url}', '\\'.UrlRewriteController::class)->name('url.rewrite');
         });
     }
 
@@ -52,11 +52,12 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
             $repository = new $repositoryClass(new $modelClass);
 
-            if (!$urlRewriteConfig['cache']) {
+            if (! $urlRewriteConfig['cache']) {
                 return $repository;
             }
 
             $cacheClass = $urlRewriteConfig['cache-decorator'];
+
             return new $cacheClass($repository, $this->app['cache.store']);
         });
     }

@@ -47,7 +47,6 @@ class UrlRewriteTest extends TestCase
         $this->assertEquals(UrlRewrite::getByTypeAndAttributes('product', $attributes)->id, $urlRewrite->id);
     }
 
-
     /** @test */
     public function it_can_find_an_url_rewrite_by_id()
     {
