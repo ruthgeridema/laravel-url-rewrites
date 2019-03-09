@@ -4,8 +4,8 @@ namespace RuthgerIdema\UrlRewrite\Traits;
 
 use RuthgerIdema\UrlRewrite\Facades\UrlRewrite;
 
-trait HasUrlRewrite {
-
+trait HasUrlRewrite
+{
     public function getUrlAttribute(): string
     {
         if (! $urlRewrite = $this->getUrlRewrite()) {
@@ -31,5 +31,4 @@ trait HasUrlRewrite {
         return UrlRewrite::getByTypeAndAttributes(
             config("url-rewrite.types.$this->urlRewriteType.route"), $this->getUrlRewriteAttributesArray());
     }
-
 }
