@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace RuthgerIdema\UrlRewrite\Repositories;
@@ -121,8 +122,7 @@ class UrlRewriteRepository implements UrlRewriteInterface
         int $redirectType = 0,
         ?string $description = null,
         ?bool $unique = false
-    ): object
-    {
+    ): object {
         list($requestPath, $targetPath) = $this->validateCreate(
             $requestPath,
             $targetPath,
@@ -140,7 +140,7 @@ class UrlRewriteRepository implements UrlRewriteInterface
                 'target_path' => $targetPath,
                 'redirect_type' => $redirectType,
                 'description' => $description,
-                'unique' => $unique
+                'unique' => $unique,
             ]
         );
     }
@@ -180,14 +180,13 @@ class UrlRewriteRepository implements UrlRewriteInterface
         ?array $typeAttributes,
         int $redirectType,
         ?bool $unique
-    ): array
-    {
-        if (!in_array($redirectType, self::allowedTypes, true)) {
+    ): array {
+        if (! in_array($redirectType, self::allowedTypes, true)) {
             throw new \Exception('Redirect type must be 0, 1 or 2');
         }
 
         if ($this->checkIfRequestPathExists($requestPath)) {
-            if (!$unique) {
+            if (! $unique) {
                 throw UrlRewriteAlreadyExistsException::requestPath($requestPath);
             }
 
@@ -197,6 +196,7 @@ class UrlRewriteRepository implements UrlRewriteInterface
         if ($targetPath === null && isset($type, $typeAttributes)) {
             $targetPath = $this->targetPathFromRoute($type, $typeAttributes);
         }
-        return array($requestPath, $targetPath);
+
+        return [$requestPath, $targetPath];
     }
 }
