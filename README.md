@@ -1,4 +1,10 @@
 # Easily add URL rewrites to a Laravel app
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/ruthgeridema/laravel-url-rewrites.svg?style=flat-square)](https://packagist.org/packages/ruthgeridema/laravel-url-rewrites)
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
+[![Quality Score](https://img.shields.io/scrutinizer/g/ruthgeridema/laravel-url-rewrites.svg?style=flat-square)](https://scrutinizer-ci.com/g/ruthgeridema/laravel-url-rewrites)
+[![StyleCI](https://styleci.io/repos/174381685/shield?branch=master)](https://styleci.io/repos/174381685)
+[![Total Downloads](https://img.shields.io/packagist/dt/ruthgeridema/laravel-url-rewrites.svg?style=flat-square)](https://packagist.org/packages/ruthgeridema/laravel-url-rewrites)
+
 Very easy to use URL rewrite package. Follow the instructions and you're good to go!
 
 You can find an example project on my Github: [view example project](https://github.com/ruthgeridema/laravel-url-rewrites-example)  
