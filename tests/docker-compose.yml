@@ -5,7 +5,7 @@ services:
     image: mysql/mysql-server:5.7
     environment:
       MYSQL_ROOT_PASSWORD: "root_password"
-      MYSQL_DATABASE: "laravel_url_rewrite"
+      MYSQL_DATABASE: "laravel_url_rewrites"
       MYSQL_USER: "username"
       MYSQL_PASSWORD: "password"
       MYSQL_ROOT_HOST: "0.0.0.0"
