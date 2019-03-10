@@ -16,7 +16,7 @@ trait HasUrlRewrite
         return route('url.rewrite', $urlRewrite->request_path, false);
     }
 
-    public function getUrlRewriteAttributesArray(): array
+    public function getUrlRewriteAttributesArray(): ?array
     {
         $mapped = [];
 
@@ -27,7 +27,7 @@ trait HasUrlRewrite
         return $mapped;
     }
 
-    public function getUrlRewrite(): object
+    public function getUrlRewrite(): ?object
     {
         return UrlRewrite::getByTypeAndAttributes(
             config("url-rewrite.types.$this->urlRewriteType.route"), $this->getUrlRewriteAttributesArray());
