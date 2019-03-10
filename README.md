@@ -1,6 +1,7 @@
 # Easily add URL rewrites to a Laravel app
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/ruthgeridema/laravel-url-rewrites.svg?style=flat-square)](https://packagist.org/packages/ruthgeridema/laravel-url-rewrites)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
+[![Build Status](https://travis-ci.org/ruthgeridema/laravel-url-rewrites.svg?branch=master)](https://travis-ci.org/ruthgeridema/laravel-url-rewrites)
 [![Quality Score](https://img.shields.io/scrutinizer/g/ruthgeridema/laravel-url-rewrites.svg?style=flat-square)](https://scrutinizer-ci.com/g/ruthgeridema/laravel-url-rewrites)
 [![StyleCI](https://styleci.io/repos/174381685/shield?branch=master)](https://styleci.io/repos/174381685)
 [![Total Downloads](https://img.shields.io/packagist/dt/ruthgeridema/laravel-url-rewrites.svg?style=flat-square)](https://packagist.org/packages/ruthgeridema/laravel-url-rewrites)
