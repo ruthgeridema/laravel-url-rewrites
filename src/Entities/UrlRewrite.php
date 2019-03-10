@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace RuthgerIdema\UrlRewrite\Entities;
@@ -60,7 +61,7 @@ class UrlRewrite extends Model
         $query = $this->where('type', $type);
 
         foreach ($attributes as $key => $attribute) {
-            $query = $query->where("type_attributes->$key", (string)$attribute);
+            $query = $query->where("type_attributes->$key", (string) $attribute);
         }
 
         return $query;

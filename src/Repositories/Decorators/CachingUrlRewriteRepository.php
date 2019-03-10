@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace RuthgerIdema\UrlRewrite\Repositories\Decorators;
@@ -130,8 +131,7 @@ class CachingUrlRewriteRepository implements UrlRewriteInterface
         int $redirectType = 0,
         ?string $description = null,
         ?bool $unique = false
-    ): object
-    {
+    ): object {
         return $this->repository->create(
             $requestPath,
             $targetPath,
