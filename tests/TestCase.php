@@ -39,7 +39,7 @@ abstract class TestCase extends Orchestra
         $app['config']->set('database.connections.mysql', [
             'driver' => 'mysql',
             'host' => '127.0.0.1',
-            'database' => env('DB_DATABASE', 'laravel_url_rewrite'),
+            'database' => env('DB_DATABASE', 'laravel_url_rewrites'),
             'username' => env('DB_USERNAME', 'username'),
             'password' => env('DB_PASSWORD', 'password'),
             'charset' => 'utf8',
@@ -78,7 +78,7 @@ abstract class TestCase extends Orchestra
 
         $rows
             ->map(function ($row) {
-                return $row->Tables_in_laravel_url_rewrite;
+                return $row->Tables_in_laravel_url_rewrites;
             })
             ->each(function (string $tableName) {
                 DB::statement("DROP TABLE {$tableName}");
