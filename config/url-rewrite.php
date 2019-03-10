@@ -6,6 +6,7 @@ return [
     'model' => \RuthgerIdema\UrlRewrite\Entities\UrlRewrite::class,
     'cache' => false,
     'cache-tag' => 'url_rewrites',
+    'cache-ttl' => 86400,
     'cache-decorator' => \RuthgerIdema\UrlRewrite\Repositories\Decorators\CachingUrlRewriteRepository::class,
     'types' => [
         'product' => [

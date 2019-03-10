@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace RuthgerIdema\UrlRewrite\Repositories\Decorators;
 
@@ -38,7 +39,7 @@ class CachingUrlRewriteRepository implements UrlRewriteInterface
         $this->addTagIfPossible();
     }
 
-    protected function remember($key, $method, ...$arguments)
+    protected function remember(string $key, string $method, ...$arguments)
     {
         return $this->cache->remember(
             $key,
@@ -49,39 +50,39 @@ class CachingUrlRewriteRepository implements UrlRewriteInterface
         );
     }
 
-    protected function addTagIfPossible()
+    protected function addTagIfPossible(): void
     {
         if ($this->cache->getStore() instanceof TaggableStore) {
             $this->cache = $this->cache->tags(config('url-rewrite.cache-key'));
         }
     }
 
-    protected function getTtl()
+    protected function getTtl(): int
     {
-        return env('URL_REWRITE_TTL', 86400);
+        return config('url-rewrite.cache-ttl');
     }
 
-    public function find($id)
+    public function find(int $id): ?object
     {
         return $this->remember(self::URL_REWRITE_ID.$id, __FUNCTION__, $id);
     }
 
-    public function getByRequestPath($url)
+    public function getByRequestPath(string $url): ?object
     {
         return $this->remember(static::URL_REWRITE_REQUEST_PATH.md5($url), __FUNCTION__, $url);
     }
 
-    public function all()
+    public function all(): ?object
     {
         return $this->remember(static::URL_REWRITE_ALL, __FUNCTION__);
     }
 
-    public function getByTargetPath($url)
+    public function getByTargetPath(string $url): ?object
     {
         return $this->remember(static::URL_REWRITE_TARGET_PATH.md5($url), __FUNCTION__, $url);
     }
 
-    public function getByTypeAndAttributes($type, array $attributes)
+    public function getByTypeAndAttributes(string $type, array $attributes): ?object
     {
         return $this->remember(
             self::URL_REWRITE_TYPE_ATTRIBUTES.md5($type.json_encode($attributes)),
@@ -91,24 +92,26 @@ class CachingUrlRewriteRepository implements UrlRewriteInterface
         );
     }
 
-    public function getModel()
+    public function getModel(): object
     {
         return $this->repository->getModel();
     }
 
-    public function setModel($model)
+    public function setModel(object $model): object
     {
         return $this->repository->setModel($model);
     }
 
-    public function delete($id)
+    public function delete(int $id): bool
     {
+        $deleted = $this->repository->delete($id);
+
         $this->forgetById($id);
 
-        return $this->repository->delete($id);
+        return $deleted;
     }
 
-    protected function forgetById($id)
+    protected function forgetById(int $id): void
     {
         if ($model = $this->find($id)) {
             $this->cache->forget(static::URL_REWRITE_ALL);
@@ -119,12 +122,28 @@ class CachingUrlRewriteRepository implements UrlRewriteInterface
         }
     }
 
-    public function create($requestPath, $targetPath, $type = null, $typeAttributes = null, $redirectType = 0, $site = null, $description = null)
+    public function create(
+        string $requestPath,
+        ?string $targetPath,
+        ?string $type = null,
+        ?array $typeAttributes = null,
+        int $redirectType = 0,
+        ?string $description = null,
+        ?bool $unique = false
+    ): object
     {
-        return $this->repository->create($requestPath, $targetPath, $type, $typeAttributes, $redirectType, $site, $description);
+        return $this->repository->create(
+            $requestPath,
+            $targetPath,
+            $type,
+            $typeAttributes,
+            $redirectType,
+            $description,
+            $unique
+        );
     }
 
-    public function update(array $data, $id)
+    public function update(array $data, int $id): object
     {
         $updated = $this->repository->update($data, $id);
 
@@ -133,7 +152,7 @@ class CachingUrlRewriteRepository implements UrlRewriteInterface
         return $updated;
     }
 
-    public function regenerateRoute($urlRewrite)
+    public function regenerateRoute($urlRewrite): object
     {
         return $this->repository->regenerateRoute($urlRewrite);
     }

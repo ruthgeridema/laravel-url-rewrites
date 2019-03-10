@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace RuthgerIdema\UrlRewrite\Traits;
 
@@ -26,7 +27,7 @@ trait HasUrlRewrite
         return $mapped;
     }
 
-    public function getUrlRewrite()
+    public function getUrlRewrite(): object
     {
         return UrlRewrite::getByTypeAndAttributes(
             config("url-rewrite.types.$this->urlRewriteType.route"), $this->getUrlRewriteAttributesArray());

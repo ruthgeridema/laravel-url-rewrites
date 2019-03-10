@@ -1,28 +1,37 @@
 <?php
+declare(strict_types=1);
 
 namespace RuthgerIdema\UrlRewrite\Repositories\Interfaces;
 
 interface UrlRewriteInterface
 {
-    public function getModel();
+    public function getModel(): object;
 
-    public function setModel($model);
+    public function setModel(object $model): object;
 
-    public function find($id);
+    public function find(int $id): ?object;
 
-    public function getByRequestPath($url);
+    public function getByRequestPath(string $url): ?object;
 
-    public function getByTypeAndAttributes($type, array $attributes);
+    public function getByTypeAndAttributes(string $type, array $attributes): ?object;
 
-    public function getByTargetPath($url);
+    public function getByTargetPath(string $url): ?object;
 
-    public function all();
+    public function all(): ?object;
 
-    public function delete($id);
+    public function delete(int $id): bool;
 
-    public function create($requestPath, $targetPath, $type = null, $typeAttributes = null, $redirectType = 0, $description = null, $unique = false);
+    public function create(
+        string $requestPath,
+        ?string $targetPath,
+        ?string $type = null,
+        ?array $typeAttributes = null,
+        int $redirectType = 0,
+        ?string $description = null,
+        bool $unique = false
+    );
 
-    public function update(array $data, $id);
+    public function update(array $data, int $id): object;
 
-    public function regenerateRoute($urlRewrite);
+    public function regenerateRoute(object $urlRewrite): object;
 }

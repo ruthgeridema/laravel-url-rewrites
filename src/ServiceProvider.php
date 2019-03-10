@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace RuthgerIdema\UrlRewrite;
 
@@ -8,11 +9,11 @@ use RuthgerIdema\UrlRewrite\Repositories\Interfaces\UrlRewriteInterface;
 
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
-    public function boot()
+    public function boot(): void
     {
         if ($this->app->runningInConsole()) {
             if (! class_exists('CreateUrlRewriteTable')) {
-                $timestamp = date('Y_m_d_His', time());
+                $timestamp = date('Y_m_d_His');
                 $this->publishes([
                     __DIR__.'/../database/migrations/create_url_rewrites_table.php.stub' => database_path('migrations/'.$timestamp.'_create_url_rewrites_table.php'),
                 ], 'migrations');
@@ -23,7 +24,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         }
     }
 
-    public function register()
+    public function register(): void
     {
         $this->mergeConfigFrom(
             __DIR__.'/../config/url-rewrite.php',
@@ -35,7 +36,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         $this->registerRouteMacro();
     }
 
-    protected function registerRouteMacro()
+    protected function registerRouteMacro(): void
     {
         $router = $this->app['router'];
         $router->macro('rewrites', function () use ($router) {

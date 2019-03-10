@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace RuthgerIdema\UrlRewrite\Entities;
 
@@ -30,7 +31,7 @@ class UrlRewrite extends Model
         'type_attributes' => 'array',
     ];
 
-    public function __construct(array $attributes = [])
+    public function __construct(?array $attributes = [])
     {
         if (! isset($this->table)) {
             $this->setTable(config('url-rewrite.table-name'));
@@ -54,12 +55,12 @@ class UrlRewrite extends Model
         return $this->redirect_type === static::PERMANENT ? 301 : 302;
     }
 
-    public function getByTypeAndAttributes($type, array $attributes)
+    public function getByTypeAndAttributes(string $type, array $attributes)
     {
         $query = $this->where('type', $type);
 
         foreach ($attributes as $key => $attribute) {
-            return $query->where("type_attributes->$key", "$attribute");
+            $query = $query->where("type_attributes->$key", (string)$attribute);
         }
 
         return $query;

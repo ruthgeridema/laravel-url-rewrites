@@ -17,7 +17,7 @@ abstract class TestCase extends Orchestra
         $this->setUpDatabase($this->app);
     }
 
-    protected function getPackageProviders($app)
+    protected function getPackageProviders($app): array
     {
         return [
             ServiceProvider::class,
@@ -27,7 +27,7 @@ abstract class TestCase extends Orchestra
     /**
      * @param \Illuminate\Foundation\Application $app
      */
-    protected function getEnvironmentSetUp($app)
+    protected function getEnvironmentSetUp($app): void
     {
         //If we're not in travis, load our local .env file
         if (empty(getenv('CI'))) {
@@ -52,7 +52,7 @@ abstract class TestCase extends Orchestra
     /**
      * @param \Illuminate\Foundation\Application $app
      */
-    protected function setUpDatabase($app)
+    protected function setUpDatabase($app): void
     {
         $this->dropAllTables();
 
@@ -66,7 +66,7 @@ abstract class TestCase extends Orchestra
         });
     }
 
-    protected function dropAllTables()
+    protected function dropAllTables(): void
     {
         $rows = collect(DB::select('SHOW TABLES'));
 

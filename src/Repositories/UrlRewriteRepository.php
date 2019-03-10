@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace RuthgerIdema\UrlRewrite\Repositories;
 
@@ -9,6 +10,9 @@ use RuthgerIdema\UrlRewrite\Repositories\Interfaces\UrlRewriteInterface;
 
 class UrlRewriteRepository implements UrlRewriteInterface
 {
+    /** @var array */
+    public const allowedTypes = [0, 1, 2];
+
     /** @var UrlRewrite */
     protected $model;
 
@@ -18,59 +22,59 @@ class UrlRewriteRepository implements UrlRewriteInterface
         $this->model = $model;
     }
 
-    public function getModel()
+    public function getModel(): object
     {
         return $this->model;
     }
 
-    public function setModel($model)
+    public function setModel(object $model): object
     {
         $this->model = $model;
 
         return $this;
     }
 
-    public function find($id)
+    public function find(int $id): ?object
     {
         return $this->model->find($id);
     }
 
-    public function checkIfIdExists($id)
+    public function checkIfIdExists(int $id): bool
     {
         return $this->model->where('id', $id)->exists();
     }
 
-    public function checkIfRequestPathExists($url)
+    public function checkIfRequestPathExists(string $url): bool
     {
         return $this->model->where('request_path', $url)->exists();
     }
 
-    public function getByRequestPath($url)
+    public function getByRequestPath(string $url): ?object
     {
         return $this->model->where('request_path', $url)->first();
     }
 
-    public function getByTypeAndAttributes($type, array $attributes)
+    public function getByTypeAndAttributes(string $type, array $attributes): ?object
     {
         return $this->model->getByTypeAndAttributes($type, $attributes)->first();
     }
 
-    public function getByTargetPath($url)
+    public function getByTargetPath($url): ?object
     {
         return $this->model->where('target_path', $url)->first();
     }
 
-    public function all()
+    public function all(): ?object
     {
         return $this->model->all();
     }
 
-    public function delete($id)
+    public function delete(int $id): bool
     {
-        $this->find($id)->delete();
+        return $this->find($id)->delete();
     }
 
-    public function regenerateAll()
+    public function regenerateAll(): void
     {
         if (empty($this->getTypes())) {
             throw UrlRewriteRegenerationFailed::noConfiguration();
@@ -81,7 +85,7 @@ class UrlRewriteRepository implements UrlRewriteInterface
         }
     }
 
-    public function regenerateRoutesFromType($type)
+    public function regenerateRoutesFromType(string $type): void
     {
         if (! array_key_exists($type, $this->getTypes())) {
             throw UrlRewriteRegenerationFailed::invalidType($type);
@@ -93,11 +97,13 @@ class UrlRewriteRepository implements UrlRewriteInterface
         }
     }
 
-    public function regenerateRoute($urlRewrite)
+    public function regenerateRoute(object $urlRewrite): object
     {
         if (! array_key_exists($urlRewrite->type, $this->getTypes())) {
             throw UrlRewriteRegenerationFailed::invalidType($urlRewrite->type);
-        } elseif (! is_array($urlRewrite->type_attributes)) {
+        }
+
+        if (! is_array($urlRewrite->type_attributes)) {
             throw UrlRewriteRegenerationFailed::columnNotSet($urlRewrite, 'type_attributes');
         }
 
@@ -108,25 +114,23 @@ class UrlRewriteRepository implements UrlRewriteInterface
     }
 
     public function create(
-        $requestPath,
-        $targetPath,
-        $type = null,
-        $typeAttributes = null,
-        $redirectType = 0,
-        $description = null,
-        $unique = false
-    ) {
-        if ($this->checkIfRequestPathExists($requestPath)) {
-            if (! $unique) {
-                throw UrlRewriteAlreadyExistsException::requestPath($requestPath);
-            }
-
-            $requestPath = $this->generateUnique($requestPath);
-        }
-
-        if ($targetPath === null && isset($type, $typeAttributes)) {
-            $targetPath = $this->targetPathFromRoute($type, $typeAttributes);
-        }
+        string $requestPath,
+        ?string $targetPath,
+        ?string $type = null,
+        ?array $typeAttributes = null,
+        int $redirectType = 0,
+        ?string $description = null,
+        ?bool $unique = false
+    ): object
+    {
+        list($requestPath, $targetPath) = $this->validateCreate(
+            $requestPath,
+            $targetPath,
+            $type,
+            $typeAttributes,
+            $redirectType,
+            $unique
+        );
 
         return $this->model->create(
             [
@@ -136,11 +140,12 @@ class UrlRewriteRepository implements UrlRewriteInterface
                 'target_path' => $targetPath,
                 'redirect_type' => $redirectType,
                 'description' => $description,
+                'unique' => $unique
             ]
         );
     }
 
-    public function update(array $data, $id)
+    public function update(array $data, int $id): object
     {
         $record = $this->find($id);
 
@@ -149,7 +154,7 @@ class UrlRewriteRepository implements UrlRewriteInterface
         return $record;
     }
 
-    protected function generateUnique($requestPath, $id = 1)
+    protected function generateUnique(string $requestPath, int $id = 1): string
     {
         if ($this->checkIfRequestPathExists($requestPath.'-'.$id)) {
             return $this->generateUnique($requestPath, $id + 1);
@@ -158,7 +163,7 @@ class UrlRewriteRepository implements UrlRewriteInterface
         return $requestPath.'-'.$id;
     }
 
-    protected function getTypes()
+    protected function getTypes(): array
     {
         return config('url-rewrite.types');
     }
@@ -166,5 +171,32 @@ class UrlRewriteRepository implements UrlRewriteInterface
     protected function targetPathFromRoute($type, $attributes): string
     {
         return route($type, $attributes, false);
+    }
+
+    protected function validateCreate(
+        string $requestPath,
+        ?string $targetPath,
+        ?string $type,
+        ?array $typeAttributes,
+        int $redirectType,
+        ?bool $unique
+    ): array
+    {
+        if (!in_array($redirectType, self::allowedTypes, true)) {
+            throw new \Exception('Redirect type must be 0, 1 or 2');
+        }
+
+        if ($this->checkIfRequestPathExists($requestPath)) {
+            if (!$unique) {
+                throw UrlRewriteAlreadyExistsException::requestPath($requestPath);
+            }
+
+            $requestPath = $this->generateUnique($requestPath);
+        }
+
+        if ($targetPath === null && isset($type, $typeAttributes)) {
+            $targetPath = $this->targetPathFromRoute($type, $typeAttributes);
+        }
+        return array($requestPath, $targetPath);
     }
 }
