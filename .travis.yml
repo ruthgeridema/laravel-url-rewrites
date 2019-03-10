@@ -1,30 +1,31 @@
 language: php
 
-sudo: false
-
-notifications:
-    email:
-        on_success: never
-        on_failure: always
-
-php:
-  - 7.2
-  - 7.3
+services:
+    - docker
 
 env:
-  - LARAVEL_VERSION=5.8.*
+  matrix:
+    - COMPOSER_FLAGS="--prefer-lowest"
+    - COMPOSER_FLAGS=""
 
-before_install:
-  - travis_retry composer self-update --stable -n
-  - composer validate --no-check-all --strict
-  - composer require "laravel/framework:${LARAVEL_VERSION}" --no-update -n
+php:
+    - 7.2
+    - 7.3
+
+sudo: false
 
 install:
-  - travis_retry composer install --no-suggest --prefer-dist -n -o
-  - travis_retry composer require --dev satooshi/php-coveralls
+    - travis_retry composer install
+
+before_script:
+    - travis_retry composer self-update
+    - travis_retry composer update ${COMPOSER_FLAGS} --no-interaction --prefer-dist
+    - sudo service mysql stop
+    - docker-compose -f ./tests/docker-compose.yml up -d
+    - php tests/wait.php
 
 script:
-  - composer run phpunit -- --coverage-clover ./tests/logs/clover.xml
-
+    - vendor/bin/phpunit
+ 
 after_script:
-  - php vendor/bin/php-coveralls -v
+    - docker-compose -f ./tests/docker-compose.yml down
