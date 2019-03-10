@@ -140,7 +140,6 @@ class UrlRewriteRepository implements UrlRewriteInterface
                 'target_path' => $targetPath,
                 'redirect_type' => $redirectType,
                 'description' => $description,
-                'unique' => $unique,
             ]
         );
     }
