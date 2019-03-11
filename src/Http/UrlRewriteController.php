@@ -37,7 +37,7 @@ class UrlRewriteController
     {
         return Route::dispatch(
             Request::create(
-                '/' . ltrim($url, '/'),
+                '/'.ltrim($url, '/'),
                 request()->getMethod()
             )
         );
