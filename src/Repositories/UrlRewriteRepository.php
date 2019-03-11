@@ -93,6 +93,7 @@ class UrlRewriteRepository implements UrlRewriteInterface
         }
 
         $rewrites = $this->model->where('type', $type)->get();
+
         foreach ($rewrites as $rewrite) {
             $this->regenerateRoute($rewrite);
         }
@@ -104,7 +105,7 @@ class UrlRewriteRepository implements UrlRewriteInterface
             throw UrlRewriteRegenerationFailed::invalidType($urlRewrite->type);
         }
 
-        if (! is_array($urlRewrite->type_attributes)) {
+        if (! \is_array($urlRewrite->type_attributes)) {
             throw UrlRewriteRegenerationFailed::columnNotSet($urlRewrite, 'type_attributes');
         }
 
@@ -123,7 +124,7 @@ class UrlRewriteRepository implements UrlRewriteInterface
         ?string $description = null,
         ?bool $unique = false
     ): object {
-        list($requestPath, $targetPath) = $this->validateCreate(
+        [$requestPath, $targetPath] = $this->validateCreate(
             $requestPath,
             $targetPath,
             $type,

@@ -22,7 +22,12 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             $this->publishes([
                 __DIR__.'/../config/url-rewrite.php' => config_path('url-rewrite.php'),
             ], 'config');
+            $this->publishes([
+                __DIR__.'/../nova/UrlRewrite.php.stub' => app_path('Nova/UrlRewrite.php'),
+            ], 'nova');
         }
+
+        $this->loadTranslationsFrom(__DIR__.'/../resources/lang/', 'urlrewrites');
     }
 
     public function register(): void

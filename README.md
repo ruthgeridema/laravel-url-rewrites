@@ -77,7 +77,14 @@ return [
     ],
 ];
 ```
+#### Laravel Nova
+Using Laravel Nova? You can publish the Nova class to App/Nova with the following command
+
+```bash
+php artisan vendor:publish --provider="RuthgerIdema\UrlRewrite\ServiceProvider" --tag="nova"
+```
   
+In the near future I will publish a Laravel Nova package with features like reindexing the URL rewrites.  
 ## Usage
 
 ### Forward request

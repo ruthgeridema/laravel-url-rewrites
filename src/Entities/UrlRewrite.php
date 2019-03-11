@@ -66,4 +66,18 @@ class UrlRewrite extends Model
 
         return $query;
     }
+
+    public static function getRedirectTypeOptionsArray(): array
+    {
+        return [
+            static::FORWARD => trans('urlrewrites::translations.forward'),
+            static::PERMANENT => trans('urlrewrites::translations.permanent'),
+            static::TEMPORARY => trans('urlrewrites::translations.temporary'),
+        ];
+    }
+
+    public static function getPossibleTypesArray(): array
+    {
+        return array_keys(config('url-rewrite.types'));
+    }
 }

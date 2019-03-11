@@ -20,7 +20,7 @@ class UrlRewriteController
         $this->repository = $repository;
     }
 
-    public function __invoke($url): Response
+    public function __invoke($url): object
     {
         if (! $urlRewrite = $this->repository->getByRequestPath($url)) {
             abort(404);
@@ -33,15 +33,11 @@ class UrlRewriteController
         return redirect($urlRewrite->target_path, $urlRewrite->getRedirectType());
     }
 
-    /**
-     * @param $url
-     * @return mixed
-     */
     protected function forwardResponse($url): Response
     {
         return Route::dispatch(
             Request::create(
-                $url,
+                '/' . ltrim($url, '/'),
                 request()->getMethod()
             )
         );

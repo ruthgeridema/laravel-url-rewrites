@@ -1,0 +1,54 @@
+<?php
+
+namespace App\Nova;
+
+use Laravel\Nova\Fields\DateTime;
+use Laravel\Nova\Fields\ID;
+use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Select;
+
+class UrlRewrite extends Resource
+{
+    /** @var string */
+    public static $model = \RuthgerIdema\UrlRewrite\Entities\UrlRewrite::class;
+
+    /** @var string */
+    public static $title = 'id';
+
+    /** @var array */
+    public static $search = [
+        'id', 'request_path', 'target_path'
+    ];
+
+    public static function label()
+    {
+        return 'URL Rewrites';
+    }
+
+    public function fields(Request $request): array
+    {
+        return [
+            ID::make()->sortable(),
+
+            Text::make(trans('urlrewrites::translations.request_path'), 'request_path')->sortable()->rules('required'),
+
+            Text::make(trans('urlrewrites::translations.target_path'), 'target_path')->sortable(),
+
+            Select::make(trans('urlrewrites::translations.redirect_type'), 'redirect_type')->options(
+                \RuthgerIdema\UrlRewrite\Entities\UrlRewrite::getRedirectTypeOptionsArray()
+            )->displayUsingLabels()->sortable()->rules('required'),
+
+            Select::make(trans('urlrewrites::translations.type'), 'type')->options(
+                \RuthgerIdema\UrlRewrite\Entities\UrlRewrite::getPossibleTypesArray()
+            )->displayUsingLabels(),
+
+            /** Idea: replace with dynamic fields based on `type` */
+            Code::make(trans('urlrewrites::translations.type_attributes'), 'type_attributes')->json(),
+
+            Text::make(trans('urlrewrites::translations.request_path'), 'description')->hideFromIndex(),
+
+            DateTime::make(trans('urlrewrites::translations.created_at'), 'created_at')->onlyOnDetail()
+        ];
+    }
+}
