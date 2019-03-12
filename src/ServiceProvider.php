@@ -48,7 +48,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
         if (class_exists('Laravel\\Nova\\Nova')) {
             $novaPath = ltrim($this->app['config']['nova']['path'], '/');
-            $queryParam = "^(?!$novaPath).*"; ;
+            $queryParam = "^(?!$novaPath).*";
         }
 
         $router = $this->app['router'];
