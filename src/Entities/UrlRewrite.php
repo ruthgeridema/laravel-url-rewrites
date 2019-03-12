@@ -78,6 +78,12 @@ class UrlRewrite extends Model
 
     public static function getPossibleTypesArray(): array
     {
-        return array_keys(config('url-rewrite.types'));
+        $array = [];
+
+        foreach (array_keys(config('url-rewrite.types')) as $type) {
+            $array[$type] = $type;
+        }
+
+        return $array;
     }
 }

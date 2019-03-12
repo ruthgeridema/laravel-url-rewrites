@@ -13,4 +13,5 @@ return [
     'description' => 'Omschrijving',
     'created_at' => 'Aangemaakt op',
     'updated_at' => 'Bijgewerkt op',
+    'regenerated' => 'Geregenereerd!',
 ];

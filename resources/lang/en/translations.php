@@ -13,4 +13,5 @@ return [
     'description' => 'Description',
     'created_at' => 'Created at',
     'updated_at' => 'Updated at',
+    'regenerated' => 'Regenerated!',
 ];
