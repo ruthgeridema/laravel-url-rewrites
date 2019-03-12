@@ -5,6 +5,7 @@ namespace App\Nova;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Code;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Select;
 use RuthgerIdema\UrlRewrite\Nova\Actions\Regenerate;
