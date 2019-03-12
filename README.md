@@ -107,7 +107,7 @@ To regenerate the target path you can use
 ```php
 UrlRewrite::regenerateRoute($urlRewrite)
 UrlRewrite::regenerateAll()
-UrlRewrite:;regenerateRoutesFromType($type)
+UrlRewrite::regenerateRoutesFromType($type)
 ```
 
 To automatically add the URL attribute to an Eloquent model, you have to add the HasUrlRewrite trait to an Eloquent model.  
