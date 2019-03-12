@@ -31,6 +31,8 @@ trait HasUrlRewrite
     public function getUrlRewrite(): ?object
     {
         return UrlRewrite::getByTypeAndAttributes(
-            config("url-rewrite.types.$this->urlRewriteType.route"), $this->getUrlRewriteAttributesArray());
+            config("url-rewrite.types.$this->urlRewriteType.route"),
+            $this->getUrlRewriteAttributesArray()
+        );
     }
 }

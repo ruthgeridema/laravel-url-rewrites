@@ -7,6 +7,9 @@ use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Select;
+use RuthgerIdema\UrlRewrite\Nova\Actions\Regenerate;
+use RuthgerIdema\UrlRewrite\Nova\Filters\RedirectTypeFilter;
+use RuthgerIdema\UrlRewrite\Nova\Filters\TypeFilter;
 
 class UrlRewrite extends Resource
 {
@@ -51,6 +54,21 @@ class UrlRewrite extends Resource
             DateTime::make(trans('urlrewrites::translations.created_at'), 'created_at')->onlyOnDetail(),
             
             DateTime::make(trans('urlrewrites::translations.updated_at'), 'updated_at')->onlyOnDetail()
+        ];
+    }
+
+    public function filters(Request $request): array
+    {
+        return [
+            new TypeFilter(),
+            new RedirectTypeFilter()
+        ];
+    }
+
+    public function actions(Request $request): array
+    {
+        return [
+            new Regenerate()
         ];
     }
 }
