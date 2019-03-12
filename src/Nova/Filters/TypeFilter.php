@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace RuthgerIdema\UrlRewrite\Nova\Filters;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Laravel\Nova\Filters\Filter;
+use Illuminate\Database\Eloquent\Builder;
 use RuthgerIdema\UrlRewrite\Entities\UrlRewrite;
 
 class TypeFilter extends Filter
