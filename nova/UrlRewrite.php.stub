@@ -48,7 +48,9 @@ class UrlRewrite extends Resource
 
             Text::make(trans('urlrewrites::translations.request_path'), 'description')->hideFromIndex(),
 
-            DateTime::make(trans('urlrewrites::translations.created_at'), 'created_at')->onlyOnDetail()
+            DateTime::make(trans('urlrewrites::translations.created_at'), 'created_at')->onlyOnDetail(),
+            
+            DateTime::make(trans('urlrewrites::translations.updated_at'), 'updated_at')->onlyOnDetail()
         ];
     }
 }
