@@ -44,9 +44,16 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
     protected function registerRouteMacro(): void
     {
+        $queryParam = '.*';
+
+        if (class_exists('Laravel\\Nova\\Nova')) {
+            $novaPath = ltrim($this->app['config']['nova']['path'], '/');
+            $queryParam = "^(?!$novaPath).*";
+        }
+
         $router = $this->app['router'];
-        $router->macro('rewrites', function () use ($router) {
-            $router->get('{url}', '\\'.UrlRewriteController::class)->where('url', '.*')->name('url.rewrite');
+        $router->macro('rewrites', function () use ($router, $queryParam) {
+            $router->get('{url}', '\\'.UrlRewriteController::class)->where('url', $queryParam)->name('url.rewrite');
         });
     }
 
