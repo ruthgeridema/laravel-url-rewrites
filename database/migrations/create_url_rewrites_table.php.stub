@@ -9,10 +9,10 @@ class CreateUrlRewritesTable extends Migration
     public function up()
     {
         Schema::create('url_rewrites', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('type')->nullable();
             $table->json('type_attributes')->nullable();
-            $table->string('request_path');
+            $table->string('request_path')->index();
             $table->string('target_path');
             $table->smallInteger('redirect_type')->default(0);
             $table->text('description')->nullable();
