@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace RuthgerIdema\UrlRewrite\Repositories;
 
 use RuthgerIdema\UrlRewrite\Entities\UrlRewrite;
-use RuthgerIdema\UrlRewrite\Exceptions\UrlRewriteRegenerationFailed;
 use RuthgerIdema\UrlRewrite\Exceptions\UrlRewriteAlreadyExistsException;
+use RuthgerIdema\UrlRewrite\Exceptions\UrlRewriteRegenerationFailed;
 use RuthgerIdema\UrlRewrite\Repositories\Interfaces\UrlRewriteInterface;
 
 class UrlRewriteRepository implements UrlRewriteInterface
