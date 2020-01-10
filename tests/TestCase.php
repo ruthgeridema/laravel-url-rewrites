@@ -5,8 +5,8 @@ namespace RuthgerIdema\UrlRewrite\Test;
 use DB;
 use Dotenv\Dotenv;
 use Illuminate\Database\Schema\Blueprint;
-use RuthgerIdema\UrlRewrite\ServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
+use RuthgerIdema\UrlRewrite\ServiceProvider;
 
 abstract class TestCase extends Orchestra
 {
